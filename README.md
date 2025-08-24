@@ -27,6 +27,7 @@ Este é um projeto simples de CRUD (Create, Read, Update, Delete) de produtos de
 ---
 
 ## 📦 Estrutura do Projetosrc
+```bash
 ├── main
 │   ├── java
 │   │   └── com.exemplo.demo
@@ -38,7 +39,7 @@ Este é um projeto simples de CRUD (Create, Read, Update, Delete) de produtos de
 │   │       └── service
 │   └── resources
 │       └── application.properties
-
+```
 
 ## 🧾 Estrutura do Produto
 
