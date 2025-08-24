@@ -26,7 +26,7 @@ Este é um projeto simples de CRUD (Create, Read, Update, Delete) de produtos de
 
 ---
 
-## 📦 Estrutura do Projetosrc
+## 📦 Estrutura do Projeto
 ```bash
 ├── main
 │   ├── java
