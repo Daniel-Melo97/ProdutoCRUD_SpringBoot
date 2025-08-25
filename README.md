@@ -22,7 +22,7 @@ Este é um projeto simples de CRUD (Create, Read, Update, Delete) de produtos de
 - [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
 - [Mysql](https://www.mysql.com/)
 - [Maven](https://maven.apache.org/)
-- [SpringDoc] (https://springdoc.org/)
+- [SpringDoc](https://springdoc.org/)
 
 ---
 
