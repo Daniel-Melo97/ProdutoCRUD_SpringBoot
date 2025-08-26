@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.desafioNeurotech.controller.swaggerAnnotations.DeleteInterfaceSwagger;
@@ -36,8 +37,8 @@ public class ControladorProduto {
 
     @GetMapping("/listar")
     @GetInterfaceSwagger
-    public List<Produto> listar() {
-        return serviceProduto.listar();
+    public List<Produto> listar(@RequestParam(required=false) @Parameter(description="Nome a ser utilizado na busca.") String nome, @RequestParam(defaultValue = "true") @Parameter(description="Booleano que indica se o retorno será ascendente ou descendente, de acordo com o preço do produto.") boolean asc) {
+        return serviceProduto.listar(nome, asc);
     }
 
     @GetMapping("/buscarPorId/{id}")

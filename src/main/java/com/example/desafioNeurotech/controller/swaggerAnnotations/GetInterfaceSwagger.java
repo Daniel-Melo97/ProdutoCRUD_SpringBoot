@@ -19,8 +19,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @Target({METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@Operation(summary = "Retorna todos os produtos.", 
-           description= "Retorna todos os produtos existentes na base de dados.")//define a descrição do retorno de produtos no swagger
+@Operation(summary = "Retorna lista de produtos.", 
+           description= "Retorna lista de produtos existentes na base de dados, podendo filtrar pelo nome e ordernar a lista retornada pelo preço(crescente ou decrescente).")//define a descrição do retorno de produtos no swagger
 @ApiResponses(value = {//define exemplos de possíveis retornos no swagger, considerando cenários de sucesso e erros
         @ApiResponse(    responseCode = "200",
             description = "Successful response",
@@ -30,7 +30,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
                 examples = {
                     @ExampleObject(
                         name = "Success Example",
-                        value = "[\n{\"id\": 1, \"nome\": \"Cerveja Itaipava 473ml\"},\n{\"id\": 1, \"nome\": \"Bola Quadrada\"}\n]"
+                        value = "[\n{\"id\": 1, \"nome\": \"Cerveja Itaipava 473ml\", \"descricao\": \"cerveja mediana\", \"preco\": 4.50, \"quantidadeEstoque\": 100, \"dataCriacao\": \"2025-08-26T19:15:10.693Z\"  },\n{\"id\": 2, \"nome\": \"Bola Quadrada\", \"descricao\": \"Bola em formato quadrado\", \"preco\": 4.00, \"quantidadeEstoque\": 10, \"dataCriacao\": \"2024-07-20T19:15:10.693Z\"}\n]"
                     )
                 }
             )),

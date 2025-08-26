@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.desafioNeurotech.exceptions.RecursoNaoEncontradoException;
@@ -45,8 +46,18 @@ public class ServiceProduto {
         }
     }
 
-    public List<Produto> listar() {
-        return produtoRepositorio.findAll();
+    public List<Produto> listar(String nome, boolean asc) {
+
+        Sort sort = asc ? Sort.by("preco").ascending() : Sort.by("preco").descending();//verifica se a ordenação será ascendente ou descendente
+        //se asc = true -> ordena de forma ascendente(crescente)
+        //se asc = false -> ordena de forma descendente(decrescente)
+
+        if(nome == null || nome.isEmpty()){//caso a pesquisa esteja vazia, retornar todos
+            return produtoRepositorio.findAll(sort);
+        }else{//se não, filtrar por produtos que contenham a string de busca em seus nomes
+            return produtoRepositorio.findByNomeContainingIgnoreCase(nome, sort);
+        }
+        
     }
 
     public Produto atualizar(Long id, @Valid Produto produtoAtualizado) {
