@@ -58,6 +58,9 @@ public class ServiceProduto {
 
         // Atualiza apenas os campos necessários
         produtoExistente.setNome(produtoAtualizado.getNome());
+        produtoExistente.setPreco(produtoAtualizado.getPreco());
+        produtoExistente.setDescricao(produtoAtualizado.getDescricao());
+        produtoExistente.setQuantidadeEstoque(produtoAtualizado.getQuantidadeEstoque());
 
         return produtoRepositorio.save(produtoExistente);
     }

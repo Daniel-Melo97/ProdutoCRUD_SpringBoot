@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.exceptions.RecursoNaoEncontradoException;
 import com.example.desafioNeurotech.controller.swaggerAnnotations.DeleteInterfaceSwagger;
 import com.example.desafioNeurotech.controller.swaggerAnnotations.GetByIdInterfaceSwagger;
 import com.example.desafioNeurotech.controller.swaggerAnnotations.GetInterfaceSwagger;
 import com.example.desafioNeurotech.controller.swaggerAnnotations.PostInterfaceSwagger;
 import com.example.desafioNeurotech.controller.swaggerAnnotations.PutInterfaceSwagger;
 import com.example.desafioNeurotech.exceptions.ParametrosInvalidosException;
+import com.example.desafioNeurotech.exceptions.RecursoNaoEncontradoException;
 import com.example.desafioNeurotech.model.Produto;
 import com.example.desafioNeurotech.service.ServiceProduto;
 
@@ -87,11 +87,11 @@ public class ControladorProduto {
     public ResponseEntity<?> atualizarProduto(
             @PathVariable @Parameter(description = "Id do produto a ser atualizado.") Long id,
             @RequestBody @Valid Produto entity, BindingResult bindingResult) {
-        if (id == null || id <= 0) {
+        if (id == null || id <= 0) {//Verifica validade do ID informado
             throw new ParametrosInvalidosException("O id não pode ser nulo ou menor que 1");
         }
 
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {//Verifica erros de validação
             StringBuilder mensagem = new StringBuilder();
             for (ObjectError erro : bindingResult.getAllErrors()) {
                 mensagem.append(erro.getDefaultMessage()).append(",");
@@ -100,14 +100,14 @@ public class ControladorProduto {
             throw new ParametrosInvalidosException(mensagem.toString());
         }
 
-        Optional<Produto> produtoExistente = serviceProduto.buscar(id);
-        if (produtoExistente.isEmpty()) {
-            throw new RecursoNaoEncontradoException("Produto não encontrado");
+        Optional<Produto> produtoExistente = serviceProduto.buscar(id);//Busca produto existente no Banco de Dados
+        if (produtoExistente.isEmpty()) {//Verifica se o produto retornado existe
+            throw new RecursoNaoEncontradoException("Produto não encontrado");//Caso não existe, retornar erro informando ao usuário
         }
 
         // Garante que o ID do produto será mantido como o original
         entity.setId(id);
-        Produto produtoAtualizado = serviceProduto.atualizar(id, entity);
+        Produto produtoAtualizado = serviceProduto.atualizar(id, entity);//realiza Update do produto
 
         return ResponseEntity.ok(produtoAtualizado);
     }

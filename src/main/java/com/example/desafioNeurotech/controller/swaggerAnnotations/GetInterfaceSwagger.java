@@ -30,7 +30,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
                 examples = {
                     @ExampleObject(
                         name = "Success Example",
-                        value = "{\"id\": 1, \"nome\": \"Cerveja Itaipava 473ml\"},\n{\"id\": 1, \"nome\": \"Bola Quadrada\"}"
+                        value = "[\n{\"id\": 1, \"nome\": \"Cerveja Itaipava 473ml\"},\n{\"id\": 1, \"nome\": \"Bola Quadrada\"}\n]"
                     )
                 }
             )),
