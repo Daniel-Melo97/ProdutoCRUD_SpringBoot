@@ -19,9 +19,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @Target({METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@Operation(summary = "Realiza o cadastro ou atualização de um produto.", 
+@Operation(summary = "Realiza o cadastro ou atualização de um produto.", //define a descrição da rota de cadastro no swagger
            description= "Ao enviar um objeto do tipo Produto, contendo o nome, sendo maior que 10 caracteres e máximo de 100, ele será cadastrado, ao informar um ID, ele realiza atualização de um produto já existente.")
-@ApiResponses(value = {
+@ApiResponses(value = {//define exemplos de possíveis retornos no swagger, considerando cenários de sucesso e erros
         @ApiResponse(    responseCode = "200",
             description = "Successful response",
             content = @Content(

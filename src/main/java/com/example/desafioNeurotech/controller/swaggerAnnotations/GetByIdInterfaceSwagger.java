@@ -20,8 +20,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 @Target({METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Operation(summary = "Retorna produto por id.", 
-           description= "Retorna um produto específico cujo id seja igual ao que foi informado na consulta.")
-@ApiResponses(value = {
+           description= "Retorna um produto específico cujo id seja igual ao que foi informado na consulta.")//define a descrição da rota getById no swagger
+@ApiResponses(value = {//define exemplos de possíveis retornos no swagger, considerando cenários de sucesso e erros
         @ApiResponse(    responseCode = "200",
             description = "Successful response",
             content = @Content(

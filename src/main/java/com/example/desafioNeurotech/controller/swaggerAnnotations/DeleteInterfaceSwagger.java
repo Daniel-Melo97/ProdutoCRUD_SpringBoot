@@ -19,8 +19,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 @Target({METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Operation(summary = "Deleta um produto.", 
-           description= "Deleta um produto cujo Id seja igual ao informado.")
-@ApiResponses(value = {
+           description= "Deleta um produto cujo Id seja igual ao informado.")//define descrição da rota de delete no swagger
+@ApiResponses(value = {//define exemplos de possíveis retornos no swagger, considerando cenários de sucesso e erros
         @ApiResponse(    responseCode = "200",
             description = "Successful response",
             content = @Content(

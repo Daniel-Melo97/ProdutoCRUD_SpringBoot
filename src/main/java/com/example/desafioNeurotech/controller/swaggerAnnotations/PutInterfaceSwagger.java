@@ -1,7 +1,6 @@
 package com.example.desafioNeurotech.controller.swaggerAnnotations;
 
 import static java.lang.annotation.ElementType.METHOD;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
@@ -18,10 +17,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 @Target({METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Operation(
-    summary = "Atualiza um produto existente.",
+    summary = "Atualiza um produto existente.",//define a descrição da rota de atualização do produto no swagger
     description = "Realiza a atualização de um produto ao informar um ID válido no path e um objeto Produto válido no corpo da requisição."
 )
-@ApiResponses(value = {
+@ApiResponses(value = {//define exemplos de possíveis retornos no swagger, considerando cenários de sucesso e erros
     @ApiResponse(
         responseCode = "200",
         description = "Produto atualizado com sucesso.",

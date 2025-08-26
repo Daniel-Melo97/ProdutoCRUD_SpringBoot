@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler {//classe criada para ter o controle e definição do formato de retorno de erros na API
     
-    @ExceptionHandler(RecursoNaoEncontradoException.class)
+    @ExceptionHandler(RecursoNaoEncontradoException.class)//define como será retornado os erros de Recursos não encontrados
     public ResponseEntity<Object> handleRecursoNaoEncontrado(RecursoNaoEncontradoException ex) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
@@ -22,20 +22,20 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(ParametrosInvalidosException.class)
+    @ExceptionHandler(ParametrosInvalidosException.class)//define como será retornado os erros de parâmetros inválidos
     public ResponseEntity<Object> handleParametrosInvalidos(ParametrosInvalidosException ex) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.BAD_REQUEST.value());
         // body.put("error", "Parâmetros inválidos");
 
-        String[] errorList = ex.getMessage().split(",");
+        String[] errorList = ex.getMessage().split(",");//transforma as mensagens de erro, separadas por vírgula, em lista de string com uma ou várias mensagens de erro
 
         body.put("message", errorList);
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(Exception.class)//Define o retorno de erros genéricos
     public ResponseEntity<Object> handleGenericException(Exception ex) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());

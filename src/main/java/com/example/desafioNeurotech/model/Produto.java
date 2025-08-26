@@ -43,6 +43,8 @@ public class Produto {
     @Temporal(TemporalType.DATE)
     private Date dataCriacao;
 
+    //getters and setters
+
     public void setId(Long id){
         this.id = id;
     }
@@ -93,6 +95,6 @@ public class Produto {
 
     @PrePersist
     protected void OnCreate(){
-        this.dataCriacao = new Date();
+        this.dataCriacao = new Date();//Garante que sempre que o Produto for salvo no BD, o atributo receberá a data atual.
     }
 }

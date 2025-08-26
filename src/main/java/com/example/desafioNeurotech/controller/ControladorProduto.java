@@ -45,10 +45,10 @@ public class ControladorProduto {
     public ResponseEntity<?> buscarPorId(
             @PathVariable @Parameter(description = "Id do produto a ser buscado.") Long id) {
 
-        if (id == null || id <= 0) {
+        if (id == null || id <= 0) {//valida o ID recebido nos parâmetros
             throw new ParametrosInvalidosException("O id não pode ser nulo");
         }
-        Optional<Produto> produto = serviceProduto.buscar(id);
+        Optional<Produto> produto = serviceProduto.buscar(id);//realiza a busca
 
         return ResponseEntity.ok(produto);
 
@@ -58,27 +58,27 @@ public class ControladorProduto {
     @PostInterfaceSwagger
     public ResponseEntity<?> cadastrar(@RequestBody @Valid Produto entity, BindingResult bindingResult) {
         
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {//verifica se há erros de validade
             String mensagem = "";
-            for (ObjectError erro : bindingResult.getAllErrors()) {
+            for (ObjectError erro : bindingResult.getAllErrors()) {//concatena mensagens de erro
                 mensagem = mensagem + erro.getDefaultMessage() + ",";
             }
             mensagem = mensagem.substring(0, mensagem.length() - 1);// remove "," que fica no final
-            throw new ParametrosInvalidosException(mensagem);
+            throw new ParametrosInvalidosException(mensagem);//levanta exceção de parâmetros inválidos
         }
-        entity.setId(null);
-        entity = serviceProduto.cadastrar(entity);
+        entity.setId(null);//garante que o ID será nulo, para que seja criado um novo registro
+        entity = serviceProduto.cadastrar(entity);//realiza cadastro
         return ResponseEntity.ok(entity);
     }
 
     @DeleteMapping("/remover/{id}")
     @DeleteInterfaceSwagger
     public ResponseEntity<?> remover(@PathVariable @Parameter(description = "Id do produto a ser deletado.") Long id) {
-        if (id == null || id <= 0) {
+        if (id == null || id <= 0) {//verifica validade do ID informado
             throw new ParametrosInvalidosException("O id não pode ser nulo");
         }
 
-        serviceProduto.deletar(id);
+        serviceProduto.deletar(id);//realiza delete
         return ResponseEntity.ok("Produto removido com sucesso");
     }
 

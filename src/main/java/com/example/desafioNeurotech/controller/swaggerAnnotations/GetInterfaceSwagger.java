@@ -20,8 +20,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 @Target({METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Operation(summary = "Retorna todos os produtos.", 
-           description= "Retorna todos os produtos existentes na base de dados.")
-@ApiResponses(value = {
+           description= "Retorna todos os produtos existentes na base de dados.")//define a descrição do retorno de produtos no swagger
+@ApiResponses(value = {//define exemplos de possíveis retornos no swagger, considerando cenários de sucesso e erros
         @ApiResponse(    responseCode = "200",
             description = "Successful response",
             content = @Content(
