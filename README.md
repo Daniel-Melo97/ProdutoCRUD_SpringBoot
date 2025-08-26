@@ -67,7 +67,13 @@ http://localhost:8081/swagger-ui/index.html
     url = "http://localhost:8081/cadastro"
 
     payload = json.dumps({
+        
         "nome": "Carrinho de brinquedo",
+        "descricao": "Carrinho de brinquedo para crianças",
+        "preco": 3.50,
+        "quantidadeEstoque": 20,
+        "dataCriacao": ""
+    
     })
 
     headers = {
