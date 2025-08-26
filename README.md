@@ -30,7 +30,8 @@ Este é um projeto simples de CRUD (Create, Read, Update, Delete) de produtos de
 ```bash
 ├── main
 │   ├── java
-│   │   └── com.exemplo.demo
+│   │   └── com.exemple.desafioNeurotech
+│   │       ├── configuration
 │   │       ├── controller
 │   │           └── swaggerAnnotations
 │   │       ├── exceptions
