@@ -14,6 +14,7 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 
 @Entity(name="produto")
 public class Produto {
@@ -24,10 +25,12 @@ public class Produto {
 
     @NotNull(message="O nome não pode ser nulo")
     @NotBlank(message="O nome não pode estar vazio")
+    @Size(max=100, message="O nome não pode exceder 100 caracteres")
     @Column(name="nome", columnDefinition="varchar(100)", nullable=false, unique=false)
     private String nome;
 
     @NotNull(message="A descrição não pode ser nula")
+    @Size(max=200, message="A descrição não pode exceder 200 caracteres")
     @Column(name="descricao", columnDefinition="varchar(200)", nullable=false, unique=false)
     private String descricao;
 
