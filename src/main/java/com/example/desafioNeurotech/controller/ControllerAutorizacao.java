@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.desafioNeurotech.controller.dto.UserDto;
 import com.example.desafioNeurotech.controller.swaggerAnnotations.LoginUserSwagger;
 import com.example.desafioNeurotech.controller.swaggerAnnotations.RegisterUserSwagger;
 import com.example.desafioNeurotech.controller.validations.ValidationUtils;
@@ -43,7 +44,8 @@ public class ControllerAutorizacao {
         validationUtils.parametrosInvalidos(bindingResult);//retorna erro caso haja dados inválidos
 
         Usuario newUsuario = serviceUsuario.registrarUsuario(usuario.getUsername(), usuario.getPassword());
-        return ResponseEntity.ok(newUsuario);
+        UserDto userDto = new UserDto(newUsuario);
+        return ResponseEntity.ok(userDto);
     }
     
     @PostMapping("/login")//autenticação de usuários

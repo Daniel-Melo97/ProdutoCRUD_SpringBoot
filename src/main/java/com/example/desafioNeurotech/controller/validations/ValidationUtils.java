@@ -16,7 +16,7 @@ public class ValidationUtils {
             for (ObjectError erro : bindingResult.getAllErrors()) {//concatena mensagens de erro
                 mensagem = mensagem + erro.getDefaultMessage() + "#";
             }
-            mensagem = mensagem.substring(0, mensagem.length() - 1);// remove "|" que fica no final
+            mensagem = mensagem.substring(0, mensagem.length() - 1);// remove "#" que fica no final
             throw new ExceptionParametrosInvalidos(mensagem);//levanta exceção de parâmetros inválidos
         }
 

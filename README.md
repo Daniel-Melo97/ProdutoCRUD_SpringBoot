@@ -11,6 +11,8 @@ Este é um projeto simples de CRUD (Create, Read, Update, Delete) de produtos de
 - 📄 Buscar produto por ID
 - ✏️ Atualizar produto
 - 🗑️ Deletar produto
+- 👤➕ Cadastrar usuários
+- 🔑 Autenticar usuários(login)
 
 ---
 
@@ -33,7 +35,9 @@ Este é um projeto simples de CRUD (Create, Read, Update, Delete) de produtos de
 │   │   └── com.exemple.desafioNeurotech
 │   │       ├── configuration
 │   │       ├── controller
-│   │           └── swaggerAnnotations
+│   │           ├── dto
+│   │           ├── swaggerAnnotations
+│   │           └── validations
 │   │       ├── exceptions
 │   │       ├── model
 │   │       ├── repository
