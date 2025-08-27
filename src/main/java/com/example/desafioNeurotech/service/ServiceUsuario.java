@@ -29,5 +29,9 @@ public class ServiceUsuario {
     public Optional<Usuario> buscarPorUsername(String username) {//retorna usuário cujo username seja igual
         return repositoryUsuario.findByUsername(username);
     }
+
+    public boolean verificarSenha(String senha, String senhaCriptografada){//retorna True se a senha informada corresponder a senha criptografada no BD, false caso contrário
+        return this.passwordEncoder.matches(senha, senhaCriptografada);
+    }
     
 }
