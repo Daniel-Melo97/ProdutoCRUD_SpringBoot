@@ -53,6 +53,10 @@ Este é um projeto simples de CRUD (Create, Read, Update, Delete) de produtos de
 {
   "id": 1,
   "nome": "Notebook",
+  "descricao": "Notebook com tela touchscreen",
+  "preco": 550.99,
+  "quantidadeEstoque": 30,
+  "dataCriacao": "2025-08-26T19:15:10.693Z"
 }
 ```
 
