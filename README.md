@@ -66,6 +66,22 @@ http://localhost:8081/swagger-ui/index.html
     import requests
     import json
 
+
+    urlLogin = "localhost:8081/auth/login"
+
+    payloadLogin = json.dumps({
+    "username": "usuario",
+    "password": "senha"
+    })
+    headersLogin = {
+    'Content-Type': 'application/json'
+    }
+
+    loginResponse = requests.request("POST", urlLogin, headers=headersLogin, data=payloadLogin)
+    jsonData = loginResponse.json()
+
+    token = jsonData["token"]
+
     url = "http://localhost:8081/cadastro"
 
     payload = json.dumps({
@@ -79,7 +95,8 @@ http://localhost:8081/swagger-ui/index.html
     })
 
     headers = {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
     }
 
     response = requests.post(url, headers=headers, data=payload)
