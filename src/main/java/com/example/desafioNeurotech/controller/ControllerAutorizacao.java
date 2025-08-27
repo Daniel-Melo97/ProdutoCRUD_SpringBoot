@@ -20,11 +20,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @Tag(name="Autenticação")
 @RequestMapping("/auth")
-public class ControladorAutorizacao {
+public class ControllerAutorizacao {
 
-     private final ServiceUsuario serviceUsuario;
+    private final ServiceUsuario serviceUsuario;
 
-    public ControladorAutorizacao(ServiceUsuario serviceUsuario) {
+    public ControllerAutorizacao(ServiceUsuario serviceUsuario){
         this.serviceUsuario = serviceUsuario;
     }
 

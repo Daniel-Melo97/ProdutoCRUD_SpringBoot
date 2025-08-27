@@ -10,11 +10,12 @@ import com.example.desafioNeurotech.model.Usuario;
 import com.example.desafioNeurotech.repository.RepositoryUsuario;
 
 @Service
-public class UsuarioDetailsService implements UserDetailsService{
+public class ServiceUsuarioDetails implements UserDetailsService{
 
-     private final RepositoryUsuario repositoryUsuario;
-
-    public UsuarioDetailsService(RepositoryUsuario repositoryUsuario) {
+    
+    private final RepositoryUsuario repositoryUsuario;
+    
+    public ServiceUsuarioDetails(RepositoryUsuario repositoryUsuario) {
         this.repositoryUsuario = repositoryUsuario;
     }
 

@@ -3,7 +3,6 @@ package com.example.desafioNeurotech.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -33,10 +32,13 @@ import jakarta.validation.Valid;
 
 @RestController("/produtos")
 @Tag(name="CRUD de Produtos")
-public class ControladorProduto {
+public class ControllerProduto {
 
-    @Autowired
-    private ServiceProduto serviceProduto;
+    private final ServiceProduto serviceProduto;
+
+    public ControllerProduto(ServiceProduto serviceProduto){
+        this.serviceProduto = serviceProduto;
+    }
 
     @GetMapping("/listar")
     @SecurityRequirement(name="bearerAuth")

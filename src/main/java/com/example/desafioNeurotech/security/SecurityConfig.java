@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private static final String[] ALLOWED_URLS = {"/auth/**", //lista de URL's permitidas para acesso livre(rotas auth e swagger)
+    private static final String[] ALLOWED_PATHS = {"/auth/**", //lista de URL's permitidas para acesso livre(rotas auth e swagger)
                                                     "/swagger-ui/**",
                                                     "/swagger-ui.html",
                                                     "/v3/api-docs/**",
@@ -38,7 +38,7 @@ public class SecurityConfig {
 
         http.csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth.requestMatchers(ALLOWED_URLS).permitAll().anyRequest().authenticated())
+            .authorizeHttpRequests(auth -> auth.requestMatchers(ALLOWED_PATHS).permitAll().anyRequest().authenticated())
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

@@ -3,7 +3,6 @@ package com.example.desafioNeurotech.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +15,12 @@ import jakarta.validation.Valid;
 @Service
 public class ServiceProduto {
 
-    @Autowired
-    private RepositoryProduto repositoryProduto;
+    
+    private final RepositoryProduto repositoryProduto;
+
+    public ServiceProduto(RepositoryProduto repositoryProduto){
+        this.repositoryProduto = repositoryProduto;
+    }
 
 
 

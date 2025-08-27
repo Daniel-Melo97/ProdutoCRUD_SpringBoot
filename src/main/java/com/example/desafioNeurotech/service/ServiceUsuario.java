@@ -12,7 +12,7 @@ import com.example.desafioNeurotech.repository.RepositoryUsuario;
 @Service
 public class ServiceUsuario {
 
-      private final RepositoryUsuario repositoryUsuario;
+    private final RepositoryUsuario repositoryUsuario;
     private final PasswordEncoder passwordEncoder;
 
     public ServiceUsuario(RepositoryUsuario repositoryUsuario) {
