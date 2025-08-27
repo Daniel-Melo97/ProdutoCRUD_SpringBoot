@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {//classe criada para ter o controle e definição do formato de retorno de erros na API
     
-    @ExceptionHandler(RecursoNaoEncontradoException.class)//define como será retornado os erros de Recursos não encontrados
-    public ResponseEntity<Object> handleRecursoNaoEncontrado(RecursoNaoEncontradoException ex) {
+    @ExceptionHandler(ExceptionRecursoNaoEncontrado.class)//define como será retornado os erros de Recursos não encontrados
+    public ResponseEntity<Object> handleRecursoNaoEncontrado(ExceptionRecursoNaoEncontrado ex) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.NOT_FOUND.value());
@@ -22,8 +22,8 @@ public class GlobalExceptionHandler {//classe criada para ter o controle e defin
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(ParametrosInvalidosException.class)//define como será retornado os erros de parâmetros inválidos
-    public ResponseEntity<Object> handleParametrosInvalidos(ParametrosInvalidosException ex) {
+    @ExceptionHandler(ExceptionParametrosInvalidos.class)//define como será retornado os erros de parâmetros inválidos
+    public ResponseEntity<Object> handleParametrosInvalidos(ExceptionParametrosInvalidos ex) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.BAD_REQUEST.value());

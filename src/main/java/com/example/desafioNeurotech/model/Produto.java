@@ -13,6 +13,7 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
@@ -26,6 +27,10 @@ public class Produto {
     @NotNull(message="O nome não pode ser nulo")
     @NotBlank(message="O nome não pode estar vazio")
     @Size(max=100, message="O nome não pode exceder 100 caracteres")
+    @Pattern(
+        regexp = "^[\\p{L}\\d ]{1,100}$",
+        message = "O nome deve conter apenas letras, números e espaços, com no máximo 100 caracteres"
+    )
     @Column(name="nome", columnDefinition="varchar(100)", nullable=false, unique=false)
     private String nome;
 

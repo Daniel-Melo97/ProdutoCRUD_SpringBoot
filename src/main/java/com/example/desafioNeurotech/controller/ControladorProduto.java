@@ -21,33 +21,38 @@ import com.example.desafioNeurotech.controller.swaggerAnnotations.GetByIdInterfa
 import com.example.desafioNeurotech.controller.swaggerAnnotations.GetInterfaceSwagger;
 import com.example.desafioNeurotech.controller.swaggerAnnotations.PostInterfaceSwagger;
 import com.example.desafioNeurotech.controller.swaggerAnnotations.PutInterfaceSwagger;
-import com.example.desafioNeurotech.exceptions.ParametrosInvalidosException;
-import com.example.desafioNeurotech.exceptions.RecursoNaoEncontradoException;
+import com.example.desafioNeurotech.exceptions.ExceptionParametrosInvalidos;
+import com.example.desafioNeurotech.exceptions.ExceptionRecursoNaoEncontrado;
 import com.example.desafioNeurotech.model.Produto;
 import com.example.desafioNeurotech.service.ServiceProduto;
 
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController("/produtos")
+@Tag(name="CRUD de Produtos")
 public class ControladorProduto {
 
     @Autowired
     private ServiceProduto serviceProduto;
 
     @GetMapping("/listar")
+    @SecurityRequirement(name="bearerAuth")
     @GetInterfaceSwagger
     public List<Produto> listar(@RequestParam(required=false) @Parameter(description="Nome a ser utilizado na busca.") String nome, @RequestParam(defaultValue = "true") @Parameter(description="Booleano que indica se o retorno será ascendente ou descendente, de acordo com o preço do produto.") boolean asc) {
         return serviceProduto.listar(nome, asc);
     }
 
     @GetMapping("/buscarPorId/{id}")
+    @SecurityRequirement(name="bearerAuth")
     @GetByIdInterfaceSwagger
     public ResponseEntity<?> buscarPorId(
             @PathVariable @Parameter(description = "Id do produto a ser buscado.") Long id) {
 
         if (id == null || id <= 0) {//valida o ID recebido nos parâmetros
-            throw new ParametrosInvalidosException("O id não pode ser nulo");
+            throw new ExceptionParametrosInvalidos("O id não pode ser nulo");
         }
         Optional<Produto> produto = serviceProduto.buscar(id);//realiza a busca
 
@@ -56,6 +61,7 @@ public class ControladorProduto {
     }
 
     @PostMapping("/cadastrar")
+    @SecurityRequirement(name="bearerAuth")
     @PostInterfaceSwagger
     public ResponseEntity<?> cadastrar(@RequestBody @Valid Produto entity, BindingResult bindingResult) {
         
@@ -65,7 +71,7 @@ public class ControladorProduto {
                 mensagem = mensagem + erro.getDefaultMessage() + ",";
             }
             mensagem = mensagem.substring(0, mensagem.length() - 1);// remove "," que fica no final
-            throw new ParametrosInvalidosException(mensagem);//levanta exceção de parâmetros inválidos
+            throw new ExceptionParametrosInvalidos(mensagem);//levanta exceção de parâmetros inválidos
         }
         entity.setId(null);//garante que o ID será nulo, para que seja criado um novo registro
         entity = serviceProduto.cadastrar(entity);//realiza cadastro
@@ -73,10 +79,11 @@ public class ControladorProduto {
     }
 
     @DeleteMapping("/remover/{id}")
+    @SecurityRequirement(name="bearerAuth")
     @DeleteInterfaceSwagger
     public ResponseEntity<?> remover(@PathVariable @Parameter(description = "Id do produto a ser deletado.") Long id) {
         if (id == null || id <= 0) {//verifica validade do ID informado
-            throw new ParametrosInvalidosException("O id não pode ser nulo");
+            throw new ExceptionParametrosInvalidos("O id não pode ser nulo");
         }
 
         serviceProduto.deletar(id);//realiza delete
@@ -84,12 +91,13 @@ public class ControladorProduto {
     }
 
     @PutMapping("/atualizar/{id}")
+    @SecurityRequirement(name="bearerAuth")
     @PutInterfaceSwagger
     public ResponseEntity<?> atualizarProduto(
             @PathVariable @Parameter(description = "Id do produto a ser atualizado.") Long id,
             @RequestBody @Valid Produto entity, BindingResult bindingResult) {
         if (id == null || id <= 0) {//Verifica validade do ID informado
-            throw new ParametrosInvalidosException("O id não pode ser nulo ou menor que 1");
+            throw new ExceptionParametrosInvalidos("O id não pode ser nulo ou menor que 1");
         }
 
         if (bindingResult.hasErrors()) {//Verifica erros de validação
@@ -98,12 +106,12 @@ public class ControladorProduto {
                 mensagem.append(erro.getDefaultMessage()).append(",");
             }
             mensagem.deleteCharAt(mensagem.length() - 1); // remove a última vírgula
-            throw new ParametrosInvalidosException(mensagem.toString());
+            throw new ExceptionParametrosInvalidos(mensagem.toString());
         }
 
         Optional<Produto> produtoExistente = serviceProduto.buscar(id);//Busca produto existente no Banco de Dados
         if (produtoExistente.isEmpty()) {//Verifica se o produto retornado existe
-            throw new RecursoNaoEncontradoException("Produto não encontrado");//Caso não existe, retornar erro informando ao usuário
+            throw new ExceptionRecursoNaoEncontrado("Produto não encontrado");//Caso não existe, retornar erro informando ao usuário
         }
 
         // Garante que o ID do produto será mantido como o original

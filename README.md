@@ -37,6 +37,7 @@ Este é um projeto simples de CRUD (Create, Read, Update, Delete) de produtos de
 │   │       ├── exceptions
 │   │       ├── model
 │   │       ├── repository
+│   │       ├── security
 │   │       └── service
 │   └── resources
 │       └── application.properties
