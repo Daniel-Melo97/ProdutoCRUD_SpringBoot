@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {//classe criada para ter o controle e defin
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.BAD_REQUEST.value());
 
-        String[] errorList = ex.getMessage().split(",");//transforma as mensagens de erro, separadas por vírgula, em lista de string com uma ou várias mensagens de erro
+        String[] errorList = ex.getMessage().split("#");//transforma as mensagens de erro, separadas por vírgula, em lista de string com uma ou várias mensagens de erro
 
         body.put("message", errorList);
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);

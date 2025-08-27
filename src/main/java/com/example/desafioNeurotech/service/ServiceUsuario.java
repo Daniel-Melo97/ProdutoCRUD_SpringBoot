@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.desafioNeurotech.exceptions.ExceptionParametrosInvalidos;
 import com.example.desafioNeurotech.model.Usuario;
 import com.example.desafioNeurotech.repository.RepositoryUsuario;
 
@@ -22,7 +23,17 @@ public class ServiceUsuario {
 
     public Usuario registrarUsuario(String username, String password) {
         String senhaCriptografada = passwordEncoder.encode(password);//criptografando para salvar com senha criptografada
+
+        Optional<Usuario> optionalUser = repositoryUsuario.findByUsername(username);
+
+        if (!optionalUser.isEmpty()) {//Verifica se o username já está sendo utilizado por algum usuário
+            throw new ExceptionParametrosInvalidos("Username '" + username + "'' já está sendo utilizado por outro usuário");//Caso não existe, retornar erro informando ao usuário
+        }
+
+        
+
         Usuario usuario = new Usuario(username, senhaCriptografada);
+        usuario.setId(null);//garantindo que o id seja nulo e que a operação gere um novo usuário
         return repositoryUsuario.save(usuario);
     }
 

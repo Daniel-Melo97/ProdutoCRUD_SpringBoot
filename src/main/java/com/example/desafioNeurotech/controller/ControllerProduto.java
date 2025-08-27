@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +19,7 @@ import com.example.desafioNeurotech.controller.swaggerAnnotations.GetByIdInterfa
 import com.example.desafioNeurotech.controller.swaggerAnnotations.GetInterfaceSwagger;
 import com.example.desafioNeurotech.controller.swaggerAnnotations.PostInterfaceSwagger;
 import com.example.desafioNeurotech.controller.swaggerAnnotations.PutInterfaceSwagger;
+import com.example.desafioNeurotech.controller.validations.ValidationUtils;
 import com.example.desafioNeurotech.exceptions.ExceptionParametrosInvalidos;
 import com.example.desafioNeurotech.exceptions.ExceptionRecursoNaoEncontrado;
 import com.example.desafioNeurotech.model.Produto;
@@ -36,19 +36,22 @@ public class ControllerProduto {
 
     private final ServiceProduto serviceProduto;
 
-    public ControllerProduto(ServiceProduto serviceProduto){
+    private final ValidationUtils validationUtils;
+
+    public ControllerProduto(ServiceProduto serviceProduto, ValidationUtils validationUtils){
         this.serviceProduto = serviceProduto;
+        this.validationUtils = validationUtils;
     }
 
     @GetMapping("/listar")
-    @SecurityRequirement(name="bearerAuth")
+    @SecurityRequirement(name="bearerAuth")//definindo que rota necessita de autenticação para o Swagger
     @GetInterfaceSwagger
     public List<Produto> listar(@RequestParam(required=false) @Parameter(description="Nome a ser utilizado na busca.") String nome, @RequestParam(defaultValue = "true") @Parameter(description="Booleano que indica se o retorno será ascendente ou descendente, de acordo com o preço do produto.") boolean asc) {
         return serviceProduto.listar(nome, asc);
     }
 
     @GetMapping("/buscarPorId/{id}")
-    @SecurityRequirement(name="bearerAuth")
+    @SecurityRequirement(name="bearerAuth")//definindo que rota necessita de autenticação para o Swagger
     @GetByIdInterfaceSwagger
     public ResponseEntity<?> buscarPorId(
             @PathVariable @Parameter(description = "Id do produto a ser buscado.") Long id) {
@@ -63,25 +66,19 @@ public class ControllerProduto {
     }
 
     @PostMapping("/cadastrar")
-    @SecurityRequirement(name="bearerAuth")
+    @SecurityRequirement(name="bearerAuth")//definindo que rota necessita de autenticação para o Swagger
     @PostInterfaceSwagger
     public ResponseEntity<?> cadastrar(@RequestBody @Valid Produto entity, BindingResult bindingResult) {
         
-        if (bindingResult.hasErrors()) {//verifica se há erros de validade
-            String mensagem = "";
-            for (ObjectError erro : bindingResult.getAllErrors()) {//concatena mensagens de erro
-                mensagem = mensagem + erro.getDefaultMessage() + ",";
-            }
-            mensagem = mensagem.substring(0, mensagem.length() - 1);// remove "," que fica no final
-            throw new ExceptionParametrosInvalidos(mensagem);//levanta exceção de parâmetros inválidos
-        }
+        validationUtils.parametrosInvalidos(bindingResult);
+
         entity.setId(null);//garante que o ID será nulo, para que seja criado um novo registro
         entity = serviceProduto.cadastrar(entity);//realiza cadastro
         return ResponseEntity.ok(entity);
     }
 
     @DeleteMapping("/remover/{id}")
-    @SecurityRequirement(name="bearerAuth")
+    @SecurityRequirement(name="bearerAuth")//definindo que rota necessita de autenticação para o Swagger
     @DeleteInterfaceSwagger
     public ResponseEntity<?> remover(@PathVariable @Parameter(description = "Id do produto a ser deletado.") Long id) {
         if (id == null || id <= 0) {//verifica validade do ID informado
@@ -93,7 +90,7 @@ public class ControllerProduto {
     }
 
     @PutMapping("/atualizar/{id}")
-    @SecurityRequirement(name="bearerAuth")
+    @SecurityRequirement(name="bearerAuth")//definindo que rota necessita de autenticação para o Swagger
     @PutInterfaceSwagger
     public ResponseEntity<?> atualizarProduto(
             @PathVariable @Parameter(description = "Id do produto a ser atualizado.") Long id,
@@ -102,14 +99,7 @@ public class ControllerProduto {
             throw new ExceptionParametrosInvalidos("O id não pode ser nulo ou menor que 1");
         }
 
-        if (bindingResult.hasErrors()) {//Verifica erros de validação
-            StringBuilder mensagem = new StringBuilder();
-            for (ObjectError erro : bindingResult.getAllErrors()) {
-                mensagem.append(erro.getDefaultMessage()).append(",");
-            }
-            mensagem.deleteCharAt(mensagem.length() - 1); // remove a última vírgula
-            throw new ExceptionParametrosInvalidos(mensagem.toString());
-        }
+        validationUtils.parametrosInvalidos(bindingResult);
 
         Optional<Produto> produtoExistente = serviceProduto.buscar(id);//Busca produto existente no Banco de Dados
         if (produtoExistente.isEmpty()) {//Verifica se o produto retornado existe

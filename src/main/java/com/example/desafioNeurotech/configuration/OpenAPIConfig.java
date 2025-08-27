@@ -22,14 +22,14 @@ public class OpenAPIConfig {//define informações da API que serão exibidas no
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-            .components(new Components()
-                .addSecuritySchemes("bearerAuth", new SecurityScheme() // Arbitrary name
+            .components(new Components()//definindo autenticação no Swagger, para permitir enviar solicitações para rotas protegidas
+                .addSecuritySchemes("bearerAuth", new SecurityScheme() 
                     .type(SecurityScheme.Type.HTTP)
                     .scheme("bearer")
-                    .bearerFormat("JWT") // Optional
+                    .bearerFormat("JWT") 
                     .in(SecurityScheme.In.HEADER)
                     .description("JWT Token for authentication")))
-            // ... other OpenAPI configurations
+            
             ;
     }
 
