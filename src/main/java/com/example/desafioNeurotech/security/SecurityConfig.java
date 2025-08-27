@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private static final String[] ALLOWED_PATHS = {"/auth/**", //lista de URL's permitidas para acesso livre(rotas auth e swagger)
+    private static final String[] ALLOWED_PATHS = {"/auth/**", //lista de Path's permitidos para acesso livre(rotas auth e swagger)
                                                     "/swagger-ui/**",
                                                     "/swagger-ui.html",
                                                     "/v3/api-docs/**",
@@ -37,9 +37,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.csrf(csrf -> csrf.disable())
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth.requestMatchers(ALLOWED_PATHS).permitAll().anyRequest().authenticated())
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))//sem sessão no servidor
+            .authorizeHttpRequests(auth -> auth.requestMatchers(ALLOWED_PATHS).permitAll().anyRequest().authenticated())//libera somente as rotas contidas na constante ALLOWED_PATHS
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);//Configura o filtro construído aqui como o que será utilizado para processar o JWT
 
         return http.build();
     }
@@ -52,7 +52,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder(){//definição do algoritmo de hash de senha
         return new BCryptPasswordEncoder();
     }
     

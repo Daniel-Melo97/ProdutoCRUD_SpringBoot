@@ -29,22 +29,22 @@ public class JwtAuthFilter extends OncePerRequestFilter{
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
-            throws ServletException, IOException {
+            throws ServletException, IOException {//método chamado automaticamente a cada requisição
         
         String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer")) {//verifica se o header está nulo ou não possui Bearer authentication
             filterChain.doFilter(request, response);
-            return;
+            return;//caso seja uma rota livre, ele encerra e permite o acesso, encerrando a execução neste ponto
         }
 
-        String token = authHeader.substring(7);
-        String username = JwtUtil.extractUsername(token);
+        String token = authHeader.substring(7);//extrai o token, removendo o "Bearer " do começo
+        String username = JwtUtil.extractUsername(token);//extrai o username a partir do token
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userdetails = userDetailsService.loadUserByUsername(username);
-            if (JwtUtil.validateToken(token)) {
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {//se o usuário foi extraído com sucesso e não há autenticação ativa
+            UserDetails userdetails = userDetailsService.loadUserByUsername(username);//busca usuário do banco
+            if (JwtUtil.validateToken(token)) {//verifica token
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userdetails, null, userdetails.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+                SecurityContextHolder.getContext().setAuthentication(authToken);//se token for válido, registra autenticação
             }
             filterChain.doFilter(request, response);
         }
