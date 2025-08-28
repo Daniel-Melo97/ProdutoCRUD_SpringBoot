@@ -65,12 +65,16 @@ Este é um projeto simples de CRUD (Create, Read, Update, Delete) de produtos de
 A documentação interativa da API pode ser acessada através do Swagger UI. Nela, você pode visualizar os endpoints disponíveis, seus métodos, e até testar as requisições diretamente pelo navegador.
 
 🔗 Acesse aqui:
-http://localhost:8081/swagger-ui/index.html
-
->**⚠️ Observação**:\É necessário que você tenha baixado e executado a aplicação em sua máquina. Somente após a aplicação estar em execução será possível acessar o Swagger.
-
-🔗 Ou Pela aplicação presente na AWS:
 http://desafio-neurotech-aws-java-env.eba-dqsvrzpf.us-east-2.elasticbeanstalk.com/
+
+## 🚀 API Collection
+
+Uma collection do Postman está disponível na pasta [`/postman_collection/desafio-neurotech-daniel.postman_collection.json`](./postman_collection/desafio-neurotech-daniel.postman_collection.json)
+
+### Como importar no Postman
+1. Abra o Postman
+2. Clique em **Import**
+3. Selecione o arquivo `.desafio-neurotech-daniel.postman_collection.json`
 
 ## 🐍 Exemplo de requisição POST em Python
 ```python
@@ -78,7 +82,7 @@ http://desafio-neurotech-aws-java-env.eba-dqsvrzpf.us-east-2.elasticbeanstalk.co
     import json
 
 
-    urlLogin = "localhost:8081/auth/login"
+    urlLogin = "http://desafio-neurotech-aws-java-env.eba-dqsvrzpf.us-east-2.elasticbeanstalk.com/auth/login"
 
     payloadLogin = json.dumps({
     "username": "usuario",
@@ -93,7 +97,7 @@ http://desafio-neurotech-aws-java-env.eba-dqsvrzpf.us-east-2.elasticbeanstalk.co
 
     token = jsonData["token"]
 
-    url = "http://localhost:8081/cadastro"
+    url = "http://desafio-neurotech-aws-java-env.eba-dqsvrzpf.us-east-2.elasticbeanstalk.com/cadastro"
 
     payload = json.dumps({
         

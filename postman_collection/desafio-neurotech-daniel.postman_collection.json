@@ -1,0 +1,273 @@
+{
+	"info": {
+		"_postman_id": "1ff08119-f877-4ca3-b73b-8e09ab6189d9",
+		"name": "CONSUMIR API - DANIEL LEMOS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17707867"
+	},
+	"item": [
+		{
+			"name": "AUTH - CRIAR USUÁRIO",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"daniel.melo\",\r\n  \"password\": \"senhaForte\"//A senha deve ter pelo menos 8 caracteres, com letras maúsculas e minúsculas, caracter especial e número \r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://desafio-neurotech-aws-java-env.eba-dqsvrzpf.us-east-2.elasticbeanstalk.com/auth/cadastro",
+					"protocol": "http",
+					"host": [
+						"desafio-neurotech-aws-java-env",
+						"eba-dqsvrzpf",
+						"us-east-2",
+						"elasticbeanstalk",
+						"com"
+					],
+					"path": [
+						"auth",
+						"cadastro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AUTH - OBTER TOKEN",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n  \"username\": \"seuusuario\",\r\n  \"password\": \"suasenhaforte\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://desafio-neurotech-aws-java-env.eba-dqsvrzpf.us-east-2.elasticbeanstalk.com/auth/login",
+					"protocol": "http",
+					"host": [
+						"desafio-neurotech-aws-java-env",
+						"eba-dqsvrzpf",
+						"us-east-2",
+						"elasticbeanstalk",
+						"com"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PRODUTO - ATUALIZAR",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtZWxvIiwiZXhwIjoxNzU2NDc1NTc0fQ.E4XuXZn-fKYammp65jgTvHYoJf3oPCDKTzgreXJI-xY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"nome\": \"Café descafeinado Nescafé\",\r\n    \"descricao\": \"Café descafeinado sem cafeina da Nescafé\",\r\n    \"preco\": 20.89,\r\n    \"quantidadeEstoque\": 100,\r\n    \"dataCriacao\": \"2025-08-28\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://desafio-neurotech-aws-java-env.eba-dqsvrzpf.us-east-2.elasticbeanstalk.com/atualizar/2",
+					"protocol": "http",
+					"host": [
+						"desafio-neurotech-aws-java-env",
+						"eba-dqsvrzpf",
+						"us-east-2",
+						"elasticbeanstalk",
+						"com"
+					],
+					"path": [
+						"atualizar",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PRODUTO - BUSCAR POR ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtZWxvIiwiZXhwIjoxNzU2NDc1NTc0fQ.E4XuXZn-fKYammp65jgTvHYoJf3oPCDKTzgreXJI-xY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://desafio-neurotech-aws-java-env.eba-dqsvrzpf.us-east-2.elasticbeanstalk.com/buscarPorId/3",
+					"protocol": "http",
+					"host": [
+						"desafio-neurotech-aws-java-env",
+						"eba-dqsvrzpf",
+						"us-east-2",
+						"elasticbeanstalk",
+						"com"
+					],
+					"path": [
+						"buscarPorId",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PRODUTO - CADASTRAR",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtZWxvIiwiZXhwIjoxNzU2NDc1NTc0fQ.E4XuXZn-fKYammp65jgTvHYoJf3oPCDKTzgreXJI-xY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 0,\r\n  \"nome\": \"Café descafeinado\",\r\n  \"descricao\": \"Café descafeinado sem cafeina\",\r\n  \"preco\": 17.89,\r\n  \"quantidadeEstoque\": 10,\r\n  \"dataCriacao\": \"2025-08-28T13:40:23.251Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://desafio-neurotech-aws-java-env.eba-dqsvrzpf.us-east-2.elasticbeanstalk.com/cadastrar",
+					"protocol": "http",
+					"host": [
+						"desafio-neurotech-aws-java-env",
+						"eba-dqsvrzpf",
+						"us-east-2",
+						"elasticbeanstalk",
+						"com"
+					],
+					"path": [
+						"cadastrar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PRODUTO - LISTAR",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtZWxvIiwiZXhwIjoxNzU2NDc1NTc0fQ.E4XuXZn-fKYammp65jgTvHYoJf3oPCDKTzgreXJI-xY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://desafio-neurotech-aws-java-env.eba-dqsvrzpf.us-east-2.elasticbeanstalk.com/listar?asc=true&nome=filtropornome",
+					"protocol": "http",
+					"host": [
+						"desafio-neurotech-aws-java-env",
+						"eba-dqsvrzpf",
+						"us-east-2",
+						"elasticbeanstalk",
+						"com"
+					],
+					"path": [
+						"listar"
+					],
+					"query": [
+						{
+							"key": "asc",
+							"value": "true",
+							"description": "ordena de forma crescente ou descrescente pelo preço do produto"
+						},
+						{
+							"key": "nome",
+							"value": "filtropornome",
+							"description": "filtra pelo nome do produto"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PRODUTO - REMOVER",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtZWxvIiwiZXhwIjoxNzU2NDc1NTc0fQ.E4XuXZn-fKYammp65jgTvHYoJf3oPCDKTzgreXJI-xY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://desafio-neurotech-aws-java-env.eba-dqsvrzpf.us-east-2.elasticbeanstalk.com/remover/1",
+					"protocol": "http",
+					"host": [
+						"desafio-neurotech-aws-java-env",
+						"eba-dqsvrzpf",
+						"us-east-2",
+						"elasticbeanstalk",
+						"com"
+					],
+					"path": [
+						"remover",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
