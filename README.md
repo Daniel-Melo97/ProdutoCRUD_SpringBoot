@@ -69,6 +69,9 @@ http://localhost:8081/swagger-ui/index.html
 
 >**⚠️ Observação**:\É necessário que você tenha baixado e executado a aplicação em sua máquina. Somente após a aplicação estar em execução será possível acessar o Swagger.
 
+🔗 Ou Pela aplicação presente na AWS:
+http://desafio-neurotech-aws-java-env.eba-dqsvrzpf.us-east-2.elasticbeanstalk.com/
+
 ## 🐍 Exemplo de requisição POST em Python
 ```python
     import requests
